@@ -6,6 +6,7 @@ import Exchange from './components/Exchange'
 import Homepage from './components/Homepage'
 import Navbar from './components/Navbar'
 import News from './components/News'
+import 'antd/dist/antd.min.css'
 
 function App() {
   return (
