@@ -1,4 +1,4 @@
-import { Layout } from 'antd'
+import { Layout, Typography } from 'antd'
 import { Routes, Route, Link } from 'react-router-dom'
 import './App.scss'
 import Crypto from './components/Crypto'
@@ -25,8 +25,13 @@ function App() {
             </Routes>
           </div>
         </Layout>
+
+        <div className='footer'>
+          <Typography.Title level={5} style={{ color: 'white' }}>
+            Copyright 2022
+          </Typography.Title>
+        </div>
       </div>
-      {/* <div className='footer'>footer</div> */}
     </div>
   )
 }

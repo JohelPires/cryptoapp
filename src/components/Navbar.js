@@ -20,7 +20,7 @@ function Navbar() {
         </Typography.Title>
         {/* <Button className='menu-control-container'></Button> */}
       </div>
-      <Menu>
+      <Menu theme='dark'>
         <Menu.Item key='home' icon={<HomeOutlined />}>
           <Link to='/'>Início</Link>
         </Menu.Item>
