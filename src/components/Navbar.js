@@ -15,7 +15,7 @@ function Navbar() {
       <div className='logo-container'>
         {/* <Avatar src={icon} size='large' /> */}
         <Typography.Title level={2} className='logo'>
-          <Link to='/'>CryptoVerso</Link>
+          <Link to='/'>Crypto Hub</Link>
           {/* CryptoVerso */}
         </Typography.Title>
         {/* <Button className='menu-control-container'></Button> */}
