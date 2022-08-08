@@ -24,11 +24,12 @@ function News({ simples }) {
             <a href={news.url} target='_blank' rel='noreferrer'>
               <div className='news-image-container'>
                 <Typography.Title className='news-title' level={4}>
-                  {news.name.length > 40
-                    ? `${news.name.substring(0, 40)}...`
+                  {news.name.length > 50
+                    ? `${news.name.substring(0, 50)}...`
                     : news.name}
                 </Typography.Title>
                 <img
+                  style={{ maxWidth: '200px', maxHeight: '100px' }}
                   src={news?.image?.thumbnail?.contentUrl || demoImg}
                   alt='crypto news'
                 />
@@ -39,12 +40,17 @@ function News({ simples }) {
                   : news.descrition}
               </p>
               <div className='provider-container'>
-                <Avatar
-                  src={
-                    news.provider[0]?.image?.thumbnail?.contentUrl || demoImg
-                  }
-                  alt=''
-                />
+                <div>
+                  <Avatar
+                    src={
+                      news.provider[0]?.image?.thumbnail?.contentUrl || demoImg
+                    }
+                    alt=''
+                  />
+                  <Typography.Text className='provider-name'>
+                    {news.provider[0]?.name}
+                  </Typography.Text>
+                </div>
                 <Typography.Text>
                   {moment(news.datePublished).startOf('ss').fromNow()}
                 </Typography.Text>
