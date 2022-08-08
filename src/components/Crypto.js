@@ -25,10 +25,12 @@ function Crypto({ simples }) {
   return (
     <>
       <div className='search-crypto'>
-        <Input
-          placeholder='Procurar cryptomoeda...'
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+        {!simples && (
+          <Input
+            placeholder='Procurar cryptomoeda...'
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        )}
       </div>
       <Row gutter={[32, 32]} className='crypto-card-container'>
         {cryptos?.map((currency) => (
