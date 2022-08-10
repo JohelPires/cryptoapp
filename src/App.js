@@ -7,6 +7,7 @@ import Homepage from './components/Homepage'
 import Navbar from './components/Navbar'
 import News from './components/News'
 import 'antd/dist/antd.min.css'
+import Details from './components/Details'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Routes>
               <Route exact path='/' element={<Homepage />} />
               <Route exact path='/crypto' element={<Crypto />} />
+              <Route exact path='/crypto/:id' element={<Details />} />
               <Route exact path='/exchange' element={<Exchange />} />
               <Route exact path='/news' element={<News />} />
             </Routes>
