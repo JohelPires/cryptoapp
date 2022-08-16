@@ -160,9 +160,10 @@ a:hover {
 
 .stats-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
+  padding: 0 40px;
 }
 
 .stats-container h2 {

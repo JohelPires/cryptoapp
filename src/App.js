@@ -8,6 +8,7 @@ import Navbar from './components/Navbar'
 import News from './components/News'
 import 'antd/dist/antd.min.css'
 import Details from './components/Details'
+import { useGetCryptoDetailsQuery } from './services/cryptoApi'
 
 function App() {
   return (

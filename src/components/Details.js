@@ -9,12 +9,14 @@ import {
   ThunderboltOutlined,
   TrophyOutlined,
 } from '@ant-design/icons'
-import { Col, Select, Typography } from 'antd'
+import { Col, Row, Select, Typography } from 'antd'
 import { Option } from 'antd/lib/mentions'
+import HTMLReactParser from 'html-react-parser'
 import millify from 'millify'
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetCryptoDetailsQuery } from '../services/cryptoApi'
+import LineChart from './LineChart'
 
 function Details() {
   const { coinId } = useParams()
@@ -24,6 +26,9 @@ function Details() {
   const time = ['3h', '24h', '7d', '30d', '3m', '1y', '3y', '5y']
 
   const cd = data?.data?.coin
+
+  if (isFetching) return 'Carregando...'
+  console.log(cd.name)
 
   const stats = [
     {
@@ -54,12 +59,12 @@ function Details() {
   ]
   const genericStats = [
     {
-      title: 'Quantidade de Mercados',
+      title: '# Mercados',
       value: cd?.numberOfMarkets,
       icon: <FundOutlined />,
     },
     {
-      title: 'Número de Operadoras',
+      title: '# Operadoras',
       value: cd?.numberOfExchanges,
       icon: <MoneyCollectOutlined />,
     },
@@ -69,19 +74,16 @@ function Details() {
       icon: <ExclamationCircleOutlined />,
     },
     {
-      title: 'Total Supply',
-      value: cd?.totalSupply,
+      title: 'Total Supply ',
+      value: millify(cd?.supply?.total),
       icon: <DollarCircleOutlined />,
     },
     {
       title: 'Circulating Supply',
-      value: cd?.circulatingSupply,
+      value: millify(cd?.supply?.circulating),
       icon: <TrophyOutlined />,
     },
   ]
-
-  if (isFetching) return 'Carregando...'
-  console.log(data)
 
   return (
     <Col className='coin-detail-container'>
@@ -98,10 +100,11 @@ function Details() {
         onChange={(value) => setTimePeriod(value)}
       >
         {time.map((p) => (
-          <Option key={p}>{p}</Option>
+          <Select.Option key={p}>{p}</Select.Option>
         ))}
       </Select>
       <p>line chart for {timePeriod}</p>
+      <LineChart />
       <Col className='stats-container'>
         <Col className='coin-value-statistics'>
           <Col className='coin-value-statistics-heading'>
@@ -113,12 +116,38 @@ function Details() {
             <Col className='coin-stats'>
               <Col className='coin-stats-name'>
                 <Typography.Text>{icon}</Typography.Text>
+                <Typography.Text>{title} </Typography.Text>
+              </Col>
+              <Typography.Text className='stats'>{value}</Typography.Text>
+            </Col>
+          ))}
+        </Col>
+        <Col className='other-stats-info'>
+          <Col className='coin-value-statistics-heading'>
+            <Typography.Title className='coin-details-heading' level={3}>
+              Estatísticas gerais
+            </Typography.Title>
+          </Col>
+          {genericStats.map(({ icon, title, value }) => (
+            <Col className='coin-stats'>
+              <Col className='coin-stats-name'>
+                <Typography.Text>{icon}</Typography.Text>
                 <Typography.Text>{title}</Typography.Text>
               </Col>
               <Typography.Text className='stats'>{value}</Typography.Text>
             </Col>
           ))}
         </Col>
+      </Col>
+      <Col className='coin-desc-link'>
+        <Row className='coin-desc'>
+          <Typography.Title level={3} className='coin-detail-heading'>
+            Sobre o {cd.name}
+            {HTMLReactParser(
+              cd.description ? cd.description : 'Não disponível'
+            )}
+          </Typography.Title>
+        </Row>
       </Col>
     </Col>
   )
