@@ -15,14 +15,18 @@ import HTMLReactParser from 'html-react-parser'
 import millify from 'millify'
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useGetCryptoDetailsQuery } from '../services/cryptoApi'
+import {
+  useGetCryptoDetailsQuery,
+  useGetCryptoHistoryQuery,
+} from '../services/cryptoApi'
 import LineChart from './LineChart'
 
 function Details() {
   const { coinId } = useParams()
-  const { data, isFetching } = useGetCryptoDetailsQuery(coinId)
-
   const [timePeriod, setTimePeriod] = useState('7d')
+  const { data, isFetching } = useGetCryptoDetailsQuery(coinId)
+  const { data: coinHistory } = useGetCryptoHistoryQuery(coinId)
+
   const time = ['3h', '24h', '7d', '30d', '3m', '1y', '3y', '5y']
 
   const cd = data?.data?.coin
@@ -94,7 +98,7 @@ function Details() {
         {/* <p>{data.data?.coin?.description}</p> */}
       </Col>
       <Select
-        defaultValue='7d'
+        defaultValue='24h'
         className='select-timeperiod'
         placeholder='Selecione o período de tempo'
         onChange={(value) => setTimePeriod(value)}
@@ -103,8 +107,14 @@ function Details() {
           <Select.Option key={p}>{p}</Select.Option>
         ))}
       </Select>
-      <p>line chart for {timePeriod}</p>
-      <LineChart />
+      <Typography.Title level={5}>
+        {/* {cd.name} chart for {timePeriod} */}
+      </Typography.Title>
+      <LineChart
+        coinHistory={coinHistory}
+        currentPrice={millify(cd.price)}
+        coinName={cd.name}
+      />
       <Col className='stats-container'>
         <Col className='coin-value-statistics'>
           <Col className='coin-value-statistics-heading'>
