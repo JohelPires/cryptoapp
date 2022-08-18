@@ -1,12 +1,12 @@
 import { Layout, Typography } from 'antd'
 import { Routes, Route, Link } from 'react-router-dom'
-import './App.scss'
 import Crypto from './components/Crypto'
 import Exchange from './components/Exchange'
 import Homepage from './components/Homepage'
 import Navbar from './components/Navbar'
 import News from './components/News'
 import 'antd/dist/antd.min.css'
+import './App.scss'
 import Details from './components/Details'
 import { useGetCryptoDetailsQuery } from './services/cryptoApi'
 
